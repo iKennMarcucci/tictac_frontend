@@ -4,12 +4,12 @@ import { NavLinks } from "@/features/home/components";
 import { FiAlignRight, FiXCircle, FiLogIn } from "react-icons/fi";
 import { Skeleton, Box } from '@mui/material';
 import logo from "../../../../public/images/Titalogo.png";
-import axios from "axios";
+import axios from "@/utils/AxiosInstance.tsx";
 import { Transition } from "@/utils";
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
-    const endpoint = "http://localhost:8081/sesion/validarToken";
+    const endpoint = "/sesion/validarToken";
     const [isLoading, setIsLoading] = useState(true);
     const [isValidated, setIsValidated] = useState(false);
     const token = localStorage.getItem("token");

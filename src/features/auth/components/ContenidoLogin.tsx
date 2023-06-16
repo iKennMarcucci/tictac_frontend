@@ -1,6 +1,6 @@
 import { FiUser, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 //import { useMostrarPassword } from "@/features/auth/hooks/useMostrarPassword";
-import axios from "axios";
+import axios from "@/utils/AxiosInstance.tsx";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -74,7 +74,7 @@ export const FormularioLoginEstudiantesPrimariaSecundaria = () => {
       password,
     };
 
-    const endpoint = 'http://localhost:8081/sesion/login/2';
+    const endpoint = '/sesion/login/2';
     // Realizar la solicitud de inicio de sesión utilizando Axios
     axios.post(endpoint, data)
         .then(response => {
@@ -109,8 +109,8 @@ export const FormularioLoginEstudiantesPrimariaSecundaria = () => {
                 </div>
                 <input
                   className=" focus:outline-none w-full border-none"
-                  type="text"
-                  placeholder="Juanito Perez"
+                  type="number"
+                  placeholder="Digite su # de documento"
                   id={documento}
                   name={documento}
                   value={documento}
@@ -175,7 +175,7 @@ export const FormularioLoginDirectivosProfesores = () => {
       password,
     };
 
-    const u = 'http://localhost:8081/sesion/login/1';
+    const u = '/sesion/login/1';
     // Realizar la solicitud de inicio de sesión utilizando Axios
     axios.post(u, data)
         .then(response => {
@@ -212,8 +212,8 @@ export const FormularioLoginDirectivosProfesores = () => {
                 </div>
                 <input
                     className=" focus:outline-none w-full border-none"
-                    type="text"
-                    placeholder="Juanito Perez"
+                    type="number"
+                    placeholder="Digite su # de documento"
                     id={documento}
                     name={documento}
                     value={documento}

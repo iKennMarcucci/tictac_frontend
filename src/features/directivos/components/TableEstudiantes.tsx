@@ -3,7 +3,7 @@ import { FiEdit2, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import ReactPaginate from "react-paginate";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import axios from "axios";
+import axios from "@/utils/AxiosInstance.tsx";
 import CircularProgress from '@mui/material/CircularProgress';
 
 const columns = [
@@ -102,7 +102,7 @@ const TableEstudiantes =  ({ grado, anoLectivo }) => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get(`http://localhost:8081/estudiante/list?grado=${grado}&anio=${anoLectivo}`);
+        const response = await axios.get(`/estudiante/list?grado=${grado}&anio=${anoLectivo}`);
         const data = response.data.map((item) => ({
           id: item.cedula,
           nombre: item.nombre,

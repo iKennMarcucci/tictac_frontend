@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Header} from "@/components";
 import {Card, CardContent, Typography, CircularProgress} from '@mui/material';
 import {styled} from '@mui/material/styles';
-import axios from "axios";
+import axios from "@/utils/AxiosInstance.tsx";
 
 const Digitales = () => {
     const [activeTab, setActiveTab] = useState(0);
@@ -47,7 +47,7 @@ const Digitales = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8081/contenido/list/institucion?eje=${eje}`);
+                const response = await axios.get(`/contenido/list/institucion?eje=${eje}`);
                 const data = response.data.map((item) => ({
                     titulo: item.titulo,
                     visibilidad: item.visibilidad,

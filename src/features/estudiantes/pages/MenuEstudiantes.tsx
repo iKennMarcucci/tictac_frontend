@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Route, Routes, useLocation, Navigate } from "react-router";
 import CircularProgress from '@mui/material/CircularProgress';
 import { Dashboard } from "../components";
-import axios from "axios";
+import axios from "@/utils/AxiosInstance.tsx";
 
 const MenuEstudiantes = () => {
     const location = useLocation();
-    const endpoint = "http://localhost:8081/sesion/validarToken";
+    const endpoint = "/sesion/validarToken";
     const [isLoading, setIsLoading] = useState(true);
     const [isValidated, setIsValidated] = useState(false);
     const token = localStorage.getItem("token");

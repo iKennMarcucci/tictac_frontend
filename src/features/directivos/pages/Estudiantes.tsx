@@ -3,7 +3,7 @@ import {TableEstudiantes} from "@/features/directivos/components";
 import {FiSearch} from "react-icons/fi";
 import ReactModal from "react-modal";
 import {useEffect, useState} from "react";
-import axios from "axios";
+import axios from "@/utils/AxiosInstance.tsx";
 
 const Estudiantes = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -43,7 +43,7 @@ const Estudiantes = () => {
                 const formData = new FormData();
                 formData.append('file', file);
 
-                const response = await axios.post("http://localhost:8081/personas/uploadEstudiantes", formData, {
+                const response = await axios.post("/personas/uploadEstudiantes", formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },

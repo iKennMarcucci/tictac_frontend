@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Header } from "@/components";
 import { Box, Select, MenuItem, FormControl, SelectChangeEvent, Checkbox, ListItemText, InputLabel } from '@mui/material';
-import axios from "axios";
+import axios from "@/utils/AxiosInstance.tsx";
 
 interface Fila {
     id: number;
@@ -111,7 +111,7 @@ const CrearHerramientaForm = () => {
         };
         try {
             setIsLoading(true);
-            const response = await axios.post("http://localhost:8081/herramienta/create", formData);
+            const response = await axios.post("/herramienta/create", formData);
             console.log('Herramienta enviada:', response.data);
             //console.log(formData)
         }

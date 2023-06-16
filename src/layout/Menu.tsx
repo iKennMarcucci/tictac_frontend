@@ -6,14 +6,14 @@ import {
 } from "@/components/cards/ContenidoModal";
 import NavigationIcon from '@mui/icons-material/Navigation';
 import { Fab } from '@mui/material';
-import axios from "axios";
+import axios from "@/utils/AxiosInstance.tsx";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 
 const Menu = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [selectedCard, setSelectedCard] = useState<string>("");
-  const endpoint = "http://localhost:8081/sesion/validarToken";
+  const endpoint = "/sesion/validarToken";
   const [isLoading, setIsLoading] = useState(true);
   const [isValidated, setIsValidated] = useState(false);
   const token = localStorage.getItem("token");
