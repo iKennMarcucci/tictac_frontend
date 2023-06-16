@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {Header} from "@/components";
+import React, { useEffect, useState } from 'react';
+import { Header } from "@/components";
 import AddIcon from '@mui/icons-material/Add';
-import {Modal, Box, Card, CardContent, Typography, CircularProgress} from '@mui/material';
-import {styled} from '@mui/material/styles';
+import { Modal, Box, Card, CardContent, Typography, CircularProgress, Alert, AlertTitle } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import axios from "@/utils/AxiosInstance.tsx";
 
 const Digitales = () => {
@@ -19,16 +19,18 @@ const Digitales = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [rows, setRows] = useState([]);
 
+    const [xd, setXd] = useState(false);
+
     const tabsData = [
-        {id: 1,title: "Relaciones sociales y practicas cívicas",},
-        {id: 2,title: "Sexualidad y construcción de ciudadanía",},
-        {id: 3,title: "Educación ambiental",},
-        {id: 4,title: "Emprendimiento",},
-        {id: 5,title: "TIC",},
+        { id: 1, title: "Relaciones sociales y practicas cívicas", },
+        { id: 2, title: "Sexualidad y construcción de ciudadanía", },
+        { id: 3, title: "Educación ambiental", },
+        { id: 4, title: "Emprendimiento", },
+        { id: 5, title: "TIC", },
     ];
 
     const handleTabClick = (id) => {
-        setActiveTab(id-1);
+        setActiveTab(id - 1);
         setIsLoading(true);
         switch (id) {
             case 1:
@@ -92,13 +94,13 @@ const Digitales = () => {
             setVisibilidad("0");
 
             console.log('Archivo enviado:', response.data);
+            setXd(true);
         } catch (error) {
             setTitulo("");
             setUrl("");
             console.error('Error al enviar el archivo:', error);
         }
         handleClose();
-        window.location.reload()
     };
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -159,12 +161,20 @@ const Digitales = () => {
 
     return (
         <div>
-            <Header titulo="Contenidos Digitales" subtitulo="Listado"/>
-            <button style={{padding: 20, marginInlineStart: 15}}
-                    onClick={handleOpen}>
+            <Header titulo="Contenidos Digitales" subtitulo="Listado" />
+            {xd ? (
+                <Alert severity="success">
+                    <AlertTitle>Success</AlertTitle>
+                    Contenido Digital Creado — <strong>Ha sido enviada a validación!</strong>
+                </Alert>
+            ) : (
+                <p></p>
+            )}
+            <button style={{ padding: 20, marginInlineStart: 15 }}
+                onClick={handleOpen}>
                 <Cardcito>
                     <CardContent>
-                        <AddIcon style={{fontSize: 40}}/>
+                        <AddIcon style={{ fontSize: 40 }} />
                         <p>Agregar</p>
                         <p>Contenido Digital</p>
                     </CardContent>
@@ -178,7 +188,7 @@ const Digitales = () => {
                                 className={`${activeTab === index
                                     ? "bg-white text-azul-50 border-azul-50"
                                     : "bg-gray-100"
-                                } text-sm px-4 py-2 text-gray-500 font-semibold uppercase border-b-2 transition duration-300`}
+                                    } text-sm px-4 py-2 text-gray-500 font-semibold uppercase border-b-2 transition duration-300`}
                                 //onClick={() => setActiveTab(index)}
                                 onClick={() => handleTabClick(tab.id)}
                             >
@@ -195,38 +205,38 @@ const Digitales = () => {
                             rows.length == 0 ? (
                                 <p>No se encontraron herramientas...</p>
                             ) : (
-                            <div style={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                flexWrap: 'wrap'
-                            }}>
-                                {rows.map((tab, _index) => (
-                                    <div style={{flexBasis: '25%', flexGrow: 0}}>
-                                        <Cardcito sx={{width: 350, minHeight: 100, margin: 2, alignItems: 'center'}}>
-                                            <a href={tab.url} target="_blank">
-                                                <CardContent>
-                                                    <Typography sx={{fontSize: 14}} gutterBottom>
-                                                        {tab.tipo}
-                                                    </Typography>
-                                                    <Typography variant="h5" component="div">
-                                                        {tab.titulo}
-                                                    </Typography>
-                                                    <Typography sx={{mb: 1.5, fontSize: 15}} variant="caption">
-                                                        {tab.autor}
-                                                    </Typography>
-                                                    {/*
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    flexWrap: 'wrap'
+                                }}>
+                                    {rows.map((tab, _index) => (
+                                        <div style={{ flexBasis: '25%', flexGrow: 0 }}>
+                                            <Cardcito sx={{ width: 350, minHeight: 100, margin: 2, alignItems: 'center' }}>
+                                                <a href={tab.url} target="_blank">
+                                                    <CardContent>
+                                                        <Typography sx={{ fontSize: 14 }} gutterBottom>
+                                                            {tab.tipo}
+                                                        </Typography>
+                                                        <Typography variant="h5" component="div">
+                                                            {tab.titulo}
+                                                        </Typography>
+                                                        <Typography sx={{ mb: 1.5, fontSize: 15 }} variant="caption">
+                                                            {tab.autor}
+                                                        </Typography>
+                                                        {/*
                                         <Typography variant="body2">
                                             {tab.descripcion}
                                             <br/>
                                         </Typography>
                                         */}
-                                                </CardContent>
-                                            </a>
-                                        </Cardcito>
-                                    </div>
-                                ))}
-                            </div>
+                                                    </CardContent>
+                                                </a>
+                                            </Cardcito>
+                                        </div>
+                                    ))}
+                                </div>
                             )
                         )}
                     </div>
@@ -280,12 +290,12 @@ const Digitales = () => {
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={style}>
-                        <p style={{fontSize: 30}}><b>Agregar Contenido Digital</b></p>
+                        <p style={{ fontSize: 30 }}><b>Agregar Contenido Digital</b></p>
                         <form onSubmit={handleSubmit}>
                             <div style={margintop}>
                                 <p><b>Título</b></p>
                                 <input required={true} type="text" value={titulo}
-                                       onChange={(e) => setTitulo(e.target.value)} style={bordes}/>
+                                    onChange={(e) => setTitulo(e.target.value)} style={bordes} />
                             </div>
                             {/*
                         <div style={margintop}>
@@ -296,7 +306,7 @@ const Digitales = () => {
                             <div style={margintop}>
                                 <p><b>Eje</b></p>
                                 <select required={true} value={tipo}
-                                        onChange={(e) => setTipo(e.target.value)} style={bordes}>
+                                    onChange={(e) => setTipo(e.target.value)} style={bordes}>
                                     <option value="1">1. Relaciones sociales y prácticas cívicas </option>
                                     <option value="2">2. Sexualidad y construcción de ciudadanía</option>
                                     <option value="3">3. Educación Ambiental</option>
@@ -307,7 +317,7 @@ const Digitales = () => {
                             <div style={margintop}>
                                 <p><b>Visibilidad</b></p>
                                 <select required={true} value={visibilidad}
-                                        onChange={(e) => setVisibilidad(e.target.value)} style={bordes}>
+                                    onChange={(e) => setVisibilidad(e.target.value)} style={bordes}>
                                     <option value="0">Privado</option>
                                     <option value="1">Público</option>
                                 </select>
@@ -315,7 +325,7 @@ const Digitales = () => {
                             <div style={margintop}>
                                 <p><b>URL</b></p>
                                 <input required={true} type="text" value={url} onChange={(e) => setUrl(e.target.value)}
-                                       style={bordes}/>
+                                    style={bordes} />
                             </div>
                             <div>
                                 <button type="submit" style={guardar}>Guardar</button>

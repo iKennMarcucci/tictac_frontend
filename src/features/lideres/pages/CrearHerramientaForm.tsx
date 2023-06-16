@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Header } from "@/components";
-import { Box, Select, MenuItem, FormControl, SelectChangeEvent, Checkbox, ListItemText, InputLabel } from '@mui/material';
+import { Box, Select, MenuItem, FormControl, SelectChangeEvent, Checkbox, ListItemText, InputLabel, TextField, Alert, AlertTitle } from '@mui/material';
 import axios from "@/utils/AxiosInstance.tsx";
 
 interface Fila {
@@ -46,33 +46,35 @@ const CrearHerramientaForm = () => {
 
     const [nombreHerramienta, setNombreHerramienta] = useState('');
     //const[poblacion, setPoblacion] = useState('');
-    const[tema, setTema] = useState('');
+    const [tema, setTema] = useState('');
     const [objectives, setObjectives] = useState('');
     const [eje, setEje] = React.useState('');
     //const[competencia, setCompetencia] = useState('');
     const competencia = personName[0];
-    const[momento1, setMomento1] = useState('');
-    const[momento2, setMomento2] = useState('');
+    const [momento1, setMomento1] = useState('');
+    const [momento2, setMomento2] = useState('');
     //const [procesos, setProcesos] = useState([]);
-    const[momento3, setMomento3] = useState('');
+    const [momento3, setMomento3] = useState('');
     const [horas, setHoras] = useState('');
     const [minutos, setMinutos] = useState('');
     let [duracion, setDuracion] = useState("00:00:00");
-    const[recomendaciones, setRecomendaciones] = useState('');
+    const [recomendaciones, setRecomendaciones] = useState('');
     const [visibilidad, setVisibilidad] = useState('');
+    const [xd, setxd] = useState(false);
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleHorasChange = (event) => {
+    const handleHorasChange = (event: any) => {
         setHoras(event.target.value);
     };
-    const handleMinutosChange = (event) => {
+    const handleMinutosChange = (event: any) => {
         setMinutos(event.target.value);
     };
-    const handleVisibilidadChange = (event) => {
+    const handleVisibilidadChange = (event: any) => {
         setVisibilidad(event.target.value);
     };
-    const handleSubmit = async (event) => {
+
+    const handleSubmit = async (event: any) => {
         event.preventDefault();
         // Procesar los valores ingresados y obtener la duración en el formato deseado
         duracion = `${horas}:${minutos}:00`;
@@ -113,11 +115,11 @@ const CrearHerramientaForm = () => {
             setIsLoading(true);
             const response = await axios.post("/herramienta/create", formData);
             console.log('Herramienta enviada:', response.data);
-            //console.log(formData)
+            setxd(true);
         }
-        catch (error){
+        catch (error) {
             console.error('Error al crear la herramienta', error);
-        }finally {
+        } finally {
             setIsLoading(false);
             setObjectives("")
             setNombreHerramienta("");
@@ -156,6 +158,13 @@ const CrearHerramientaForm = () => {
         setFilas(nuevasFilas);
     };
 
+    const handleInputChange = (event: any) => {
+        const inputValue = event.target.value;
+        const numbersOnly = inputValue.replace(/[^0-9]/g, '');
+        const formattedValue = numbersOnly.replace(/(\d{2})(?=\d)/g, '$1:');
+        console.log(formattedValue);
+    };
+
     const eliminarFila = (indice: number) => {
         const nuevasFilas = filas.filter((_fila, i) => i !== indice);
         setFilas(nuevasFilas);
@@ -182,13 +191,22 @@ const CrearHerramientaForm = () => {
         }
     };
 
-    if (isLoading){
+    if (isLoading) {
         return <p>Creando herramienta...</p>
     }
+
 
     return (
         <div className="mt-3" >
             <Header titulo="Crear nueva herramienta" subtitulo="Formulario" />
+            {xd ? (
+                <Alert severity="success">
+                    <AlertTitle>Success</AlertTitle>
+                    Herramienta Creada — <strong>Ha sido enviada a validación.!</strong>
+                </Alert>
+            ) : (
+                <p></p>
+            )}
             <form onSubmit={handleSubmit}>
                 <table className='border-2' style={{ borderColor: '#b1b1b1' }}>
                     <tbody className='text-center'>
@@ -282,7 +300,7 @@ const CrearHerramientaForm = () => {
                             <td>
                                 <Box sx={{ minWidth: 120, m: 1 }}>
                                     <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Seleccione las Competencias a Desarrollar</InputLabel>
+                                        <InputLabel id="demo-simple-select-label">Seleccione las Competencias a Desarrollar</InputLabel>
                                         <Select required
                                             labelId="demo-multiple-checkbox-label"
                                             id="demo-multiple-checkbox"
@@ -390,17 +408,6 @@ const CrearHerramientaForm = () => {
                                 placeholder='Explica como se cerrará el taller.'
                             />
                         </tr>
-                        {/*
-                        <tr className='p-1 font-medium italic border-2' style={{ borderColor: '#b1b1b1' }}>
-                            <td className='p-1 font-medium italic border-2' style={{ borderColor: '#b1b1b1' }}>Duración</td>
-                            <td>
-                                <input
-                                    type="text"
-                                    style={{ width: '90%', textAlign: 'center' }}
-                                />
-                            </td>
-                        </tr>
-                        */}
                         <tr className='p-1 font-medium italic border-2' style={{ borderColor: '#b1b1b1' }}>
                             <td className='p-1 font-medium italic border-2' style={{ borderColor: '#b1b1b1' }}>Duración</td>
                             <td>

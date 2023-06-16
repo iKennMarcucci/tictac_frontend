@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation, Link } from "react-router-dom";
 import {FiAward, FiFolder, FiBarChart2, FiTool, FiGrid, FiBriefcase, FiStar} from "react-icons/fi";
-import logo from "../../../../../public/images/TicTac.png";
+import logo from "../../../../../public/images/Titalogo.png";
 import {SidebarLinkGroups} from "@/features/lideres/components";
 
 interface SidebarDashboardProps {
@@ -143,7 +143,7 @@ const SidebarDashboard = ({
                                 : "text-slate-400"
                         }`}
                     />
-                    <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                    <span className="ml-3 text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
                                 Inicio
                     </span>
                   </div>
@@ -201,8 +201,8 @@ const SidebarDashboard = ({
                                 : "text-slate-400"
                         }`}
                     />
-                    <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Contenido audiovisual
+                    <span className="ml-3 text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                Contenido Digital
                     </span>
                   </div>
                 </Link>

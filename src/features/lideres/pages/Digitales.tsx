@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Header} from "@/components";
 import AddIcon from '@mui/icons-material/Add';
-import {Modal, Box, Card, CardContent, Typography} from '@mui/material';
+import {Modal, Box, Card, CardContent, Typography, CircularProgress, Alert, AlertTitle} from '@mui/material';
 import {styled} from '@mui/material/styles';
 import axios from "@/utils/AxiosInstance.tsx";
-import CircularProgress from '@mui/material/CircularProgress';
 
 const Digitales = () => {
     const [open, setOpen] = React.useState(false);
@@ -19,6 +18,7 @@ const Digitales = () => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [rows, setRows] = useState([]);
+    const [xd, setXd] = useState(false);
 
     const tabsData = [
         {id: 1,title: "Relaciones sociales y practicas cívicas",},
@@ -93,13 +93,13 @@ const Digitales = () => {
             setVisibilidad("0");
 
             console.log('Archivo enviado:', response.data);
+            setXd(true);
         } catch (error) {
             setTitulo("");
             setUrl("");
             console.error('Error al enviar el archivo:', error);
         }
         handleClose();
-        window.location.reload()
     };
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -161,6 +161,14 @@ const Digitales = () => {
     return (
         <div>
             <Header titulo="Contenidos Digitales" subtitulo="Listado"/>
+            {xd ? (
+                <Alert severity="success">
+                    <AlertTitle>Success</AlertTitle>
+                    Contenido Digital Creado — <strong>Ha sido enviada a validación!</strong>
+                </Alert>
+            ) : (
+                <p></p>
+            )}
             <button style={{padding: 20, marginInlineStart: 15}}
                     onClick={handleOpen}>
                 <Cardcito>

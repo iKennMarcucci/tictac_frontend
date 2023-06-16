@@ -3,6 +3,7 @@ import { FiUser, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 import axios from "@/utils/AxiosInstance.tsx";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
 
 export const FormularioLoginEstudiantesPrimaria = () => {
   return (
@@ -59,13 +60,14 @@ export const FormularioLoginEstudiantesPrimariaSecundaria = () => {
   const [documento, setDocumento] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [xd, setxd] = useState(false);
   const toggleMostrarPassword = () => {
     setMostrarPassword(!mostrarPassword);
   };
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setPassword(event.target.value);
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
 
     // Crear objeto de datos a enviar
@@ -73,21 +75,21 @@ export const FormularioLoginEstudiantesPrimariaSecundaria = () => {
       documento,
       password,
     };
-
     const endpoint = '/sesion/login/2';
     // Realizar la solicitud de inicio de sesión utilizando Axios
     axios.post(endpoint, data)
-        .then(response => {
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("nombre", response.data.nombre);
-          localStorage.setItem("apellido", response.data.apellido);
-          localStorage.setItem("documento", response.data.documento);
-          localStorage.setItem("rol", response.data.rol)
-          if(response.status == 200) navigate("/menu-estudiantes");
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      .then(response => {
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("nombre", response.data.nombre);
+        localStorage.setItem("apellido", response.data.apellido);
+        localStorage.setItem("documento", response.data.documento);
+        localStorage.setItem("rol", response.data.rol)
+        if (response.status == 200) navigate("/menu-estudiantes");
+      })
+      .catch(error => {
+        console.log();
+        setxd(true);
+      });
   };
 
   return (
@@ -114,7 +116,7 @@ export const FormularioLoginEstudiantesPrimariaSecundaria = () => {
                   id={documento}
                   name={documento}
                   value={documento}
-                  onChange={(event) => setDocumento(event.target.value) }
+                  onChange={(event) => setDocumento(event.target.value)}
                 />
               </div>
             </div>
@@ -145,7 +147,12 @@ export const FormularioLoginEstudiantesPrimariaSecundaria = () => {
                 </button>
               </div>
             </div>
-            <button className="w-full bg-azul-50 hover:bg-azul-100 rounded-lg text-white text-medium p-2">
+            {xd ? (
+              <Alert severity="error">Usuario o Contraseña Invalidos.</Alert>
+            ) : (
+              <p></p>
+            )}
+            <button className="mt-5 w-full bg-azul-50 hover:bg-azul-100 rounded-lg text-white text-medium p-2">
               Iniciar sesión
             </button>
           </form>
@@ -160,13 +167,14 @@ export const FormularioLoginDirectivosProfesores = () => {
   const [documento, setDocumento] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [xd, setxd] = useState(false);
   const toggleMostrarPassword = () => {
     setMostrarPassword(!mostrarPassword);
   };
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setPassword(event.target.value);
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
 
     // Crear objeto de datos a enviar
@@ -176,23 +184,24 @@ export const FormularioLoginDirectivosProfesores = () => {
     };
 
     const u = '/sesion/login/1';
+
     // Realizar la solicitud de inicio de sesión utilizando Axios
     axios.post(u, data)
-        .then(response => {
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("nombre", response.data.nombre);
-          localStorage.setItem("apellido", response.data.apellido);
-          localStorage.setItem("documento", response.data.documento);
-          localStorage.setItem("rol", response.data.rol)
-          if(response.status == 200 && localStorage.getItem("rol") == "Docente") navigate("/menu-docentes");
-          if(response.status == 200 && localStorage.getItem("rol") == "Lider PPT") navigate("/menu-lideres");
-          if(response.status == 200 && localStorage.getItem("rol") == "Admin") navigate("/menu-directivos");
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      .then(response => {
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("nombre", response.data.nombre);
+        localStorage.setItem("apellido", response.data.apellido);
+        localStorage.setItem("documento", response.data.documento);
+        localStorage.setItem("rol", response.data.rol)
+        if (response.status == 200 && localStorage.getItem("rol") == "Docente") navigate("/menu-docentes");
+        if (response.status == 200 && localStorage.getItem("rol") == "Lider PPT") navigate("/menu-lideres");
+        if (response.status == 200 && localStorage.getItem("rol") == "Admin") navigate("/menu-directivos");
+      })
+      .catch(error => {
+        console.log();
+        setxd(true);
+      });
   };
-
   return (
     <div className="w-full h-screen flex">
       <div className="bg-[url('../../../../public/images/directivozz.png')] bg-cover bg-center bg-no-repeat w-3/4"></div>
@@ -211,13 +220,13 @@ export const FormularioLoginDirectivosProfesores = () => {
                   <FiUser className="" size={20} />
                 </div>
                 <input
-                    className=" focus:outline-none w-full border-none"
-                    type="number"
-                    placeholder="Digite su # de documento"
-                    id={documento}
-                    name={documento}
-                    value={documento}
-                    onChange={(event) => setDocumento(event.target.value) }
+                  className=" focus:outline-none w-full border-none"
+                  type="number"
+                  placeholder="Digite su # de documento"
+                  id={documento}
+                  name={documento}
+                  value={documento}
+                  onChange={(event) => setDocumento(event.target.value)}
                 />
               </div>
             </div>
@@ -228,12 +237,12 @@ export const FormularioLoginDirectivosProfesores = () => {
                   <FiLock className="" size={20} />
                 </div>
                 <input
-                    className="focus:outline-none w-full border-none"
-                    id={password}
-                    name={password}
-                    value={password}
-                    onChange={(event) => handleChange(event)}
-                    type={mostrarPassword ? "text" : "password"}
+                  className="focus:outline-none w-full border-none"
+                  id={password}
+                  name={password}
+                  value={password}
+                  onChange={(event) => handleChange(event)}
+                  type={mostrarPassword ? "text" : "password"}
                 />
                 <button
                   className="p-2 bg-gray-200 rounded-tr-lg rounded-br-lg"
@@ -248,7 +257,12 @@ export const FormularioLoginDirectivosProfesores = () => {
                 </button>
               </div>
             </div>
-            <button className="w-full bg-azul-50 hover:bg-azul-100 rounded-lg text-white text-medium p-2">
+            {xd ? (
+              <Alert severity="error">Usuario o Contraseña Invalidos.</Alert>
+            ) : (
+              <p></p>
+            )}
+            <button className="mt-5 w-full bg-azul-50 hover:bg-azul-100 rounded-lg text-white text-medium p-2">
               Iniciar sesión
             </button>
           </form>
