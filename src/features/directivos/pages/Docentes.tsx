@@ -13,7 +13,10 @@ const Docentes = () => {
   const [idLinea, setIdLinea] = useState("0");
   const [esLider, setEsLider] = useState("0");
 
-  const [xd, setXd] = useState(0);
+  const [showAlert, setShowAlert] = useState(0);
+  const handleCloseAlert = () => {
+    setShowAlert(0);
+  };
 
   const handleIdLineaChange = (event) => {
     setIdLinea(event.target.value);
@@ -53,22 +56,26 @@ const Docentes = () => {
         });
 
         console.log('Archivo enviado:', response.data);
-        setXd(1);
+        setShowAlert(1);
       } catch (error) {
         console.error('Error al enviar el archivo:', error);
-        setXd(2);
+        setShowAlert(2);
       }
     }
+    else setShowAlert(3);
+
     handleCloseModal();
   };
 
   return (
     <div className="mt-3">
       <Header titulo="Docentes" subtitulo="Listado" />
-      {xd === 1 ? (
-        <Alert severity="error" onClose={() => { }}><strong>ERROR</strong> al cargar los datos.</Alert>
-      ) : xd === 2 ? (
-        <Alert onClose={() => { }}>Datos Cargados en el Sistema.</Alert>
+      {showAlert == 3 ? (
+        <Alert severity="error" onClose={handleCloseAlert}>Tipo de archivo invalido.</Alert>
+      ) : showAlert == 2 ? (
+        <Alert severity="error" onClose={handleCloseAlert}><strong>ERROR</strong> al cargar los datos.</Alert>
+      ) : showAlert == 1 ? (
+        <Alert onClose={handleCloseAlert}>Datos Cargados en el Sistema.</Alert>
       ) : (
         <p></p>
       )}

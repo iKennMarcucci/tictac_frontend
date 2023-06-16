@@ -1,8 +1,9 @@
-import {Header} from "@/components";
-import {TableEstudiantes} from "@/features/directivos/components";
-import {FiSearch} from "react-icons/fi";
+import { Header } from "@/components";
+import { TableEstudiantes } from "@/features/directivos/components";
+import { FiSearch } from "react-icons/fi";
 import ReactModal from "react-modal";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
+import Alert from '@mui/material/Alert';
 import axios from "@/utils/AxiosInstance.tsx";
 
 const Estudiantes = () => {
@@ -11,6 +12,11 @@ const Estudiantes = () => {
 
     const [grado, setGrado] = useState("0");
     const [anoLectivo, setAnoLectivo] = useState("0");
+
+    const [showAlert, setShowAlert] = useState(0);
+    const handleCloseAlert = () => {
+        setShowAlert(0);
+    };
 
     const handleGradoChange = (event) => {
         setGrado(event.target.value);
@@ -50,16 +56,29 @@ const Estudiantes = () => {
                 });
 
                 console.log('Archivo enviado:', response.data);
+                setShowAlert(1);
             } catch (error) {
                 console.error('Error al enviar el archivo:', error);
+                setShowAlert(2);
             }
         }
+        else setShowAlert(3);
+
         handleCloseModal();
     };
 
     return (
         <div className="mt-3">
-            <Header titulo="Estudiantes" subtitulo="Listado"/>
+            <Header titulo="Estudiantes" subtitulo="Listado" />
+            {showAlert == 3 ? (
+                <Alert severity="error" onClose={handleCloseAlert}>Tipo de archivo invalido.</Alert>
+            ) : showAlert == 2 ? (
+                <Alert severity="error" onClose={handleCloseAlert}><strong>ERROR</strong> al cargar los datos.</Alert>
+            ) : showAlert == 1 ? (
+                <Alert onClose={handleCloseAlert}>Datos Cargados en el Sistema.</Alert>
+            ) : (
+                <p></p>
+            )}
             <div className="bg-white mt-4 shadow-md p-3">
                 <div className="flex justify-between items-center">
                     <div className="flex gap-10">
@@ -125,7 +144,7 @@ const Estudiantes = () => {
                         </div>
                     </div>
                     <button type="button" onClick={handleOpenModal}
-                            className="bg-azul-50 hover:bg-azul-100 text-white font-medium rounded-lg h-max p-3">
+                        className="bg-azul-50 hover:bg-azul-100 text-white font-medium rounded-lg h-max p-3">
                         Cargar estudiantes
                     </button>
                     <ReactModal
@@ -153,7 +172,7 @@ const Estudiantes = () => {
                         }}
                     >
                         {/* Contenido del modal */}
-                        <h1 style={{fontSize: '24px', marginBottom: '16px'}}>Cargar estudiantes</h1>
+                        <h1 style={{ fontSize: '24px', marginBottom: '16px' }}>Cargar estudiantes</h1>
                         <form onSubmit={handleSubmit} style={{
                             display: 'flex',
                             flexDirection: 'column',
@@ -162,7 +181,7 @@ const Estudiantes = () => {
                         }}>
                             <label>
                                 <input name={"file"} id={"file"} type="file" onChange={handleInputChange}
-                                       className="bg-gray-100 border border-gray-300 rounded-lg p-1 mt-1"/>
+                                    className="bg-gray-100 border border-gray-300 rounded-lg p-1 mt-1" />
                             </label>
                             <div style={{
                                 width: '50%',
@@ -171,16 +190,16 @@ const Estudiantes = () => {
                                 marginTop: '16px'
                             }}>
                                 <button type="submit"
-                                        className="bg-green-500 hover:bg-green-300 text-white font-medium rounded-lg h-max p-2">Enviar
+                                    className="bg-green-500 hover:bg-green-300 text-white font-medium rounded-lg h-max p-2">Enviar
                                 </button>
                                 <button onClick={handleCloseModal}
-                                        className="bg-red-500 hover:bg-red-300 text-white font-medium rounded-lg h-max p-2">Cancelar
+                                    className="bg-red-500 hover:bg-red-300 text-white font-medium rounded-lg h-max p-2">Cancelar
                                 </button>
                             </div>
                         </form>
                     </ReactModal>
                 </div>
-                <TableEstudiantes grado={grado} anoLectivo={anoLectivo}/>
+                <TableEstudiantes grado={grado} anoLectivo={anoLectivo} />
             </div>
         </div>
     );
