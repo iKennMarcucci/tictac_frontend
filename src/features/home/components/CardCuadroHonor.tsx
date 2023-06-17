@@ -1,4 +1,4 @@
-import { honorRankings } from "@/features/home/utils/honorRanking";
+import { honorRankings } from "@/features/home/utils/HonorRanking";
 
 const CardCuadroHonor = () => {
   return (
