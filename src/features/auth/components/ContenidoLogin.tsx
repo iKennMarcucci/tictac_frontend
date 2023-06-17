@@ -8,7 +8,7 @@ import Alert from '@mui/material/Alert';
 export const FormularioLoginEstudiantesPrimaria = () => {
   return (
     <div className="w-full h-screen flex">
-      <div className="w-3/4 lg:block hidden bg-[url('../../../../public/images/preescolar.png')] bg-cover bg-center bg-no-repeat"></div>
+      <div style={{ backgroundImage: 'public/images/preescolar.jpg' }} className="w-3/4 lg:block hidden bg-cover bg-center bg-no-repeat"></div>
       <div className="w-full lg:w-2/5 flex justify-center items-center">
         <div className="p-3 w-2/3">
           <h1 className="font-semibold text-3xl text-center underline">
@@ -94,7 +94,7 @@ export const FormularioLoginEstudiantesPrimariaSecundaria = () => {
 
   return (
     <div className="w-full h-screen flex">
-      <div className="bg-[url('../../../../public/images/primarialog.png')] bg-cover bg-center bg-no-repeat w-3/4"></div>
+      <div style={{ backgroundImage: 'public/images/primarialog.jpg' }} className="bg-cover bg-center bg-no-repeat w-3/4"></div>
       <div className="w-2/5 flex justify-center items-center">
         <div className="p-3 w-2/3">
           <h1 className="font-semibold text-3xl text-center underline">
@@ -204,7 +204,7 @@ export const FormularioLoginDirectivosProfesores = () => {
   };
   return (
     <div className="w-full h-screen flex">
-      <div className="bg-[url('../../../../public/images/directivozz.png')] bg-cover bg-center bg-no-repeat w-3/4"></div>
+      <div style={{ backgroundImage: 'public/images/directivozz.jpg' }} className="bg-cover bg-center bg-no-repeat w-3/4"></div>
       <div className="w-2/5 flex justify-center items-center">
         <div className="p-3 w-2/3">
           <h1 className="font-semibold text-3xl text-center underline">

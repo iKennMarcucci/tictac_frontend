@@ -1,4 +1,4 @@
-import tictac from "../../../../public/images/TicTac.png";
+import tictac from "../../../../public/images/Titalogo.jpg";
 import { FiFacebook, FiInstagram } from "react-icons/fi";
 
 const Footer = () => {

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation, Link } from "react-router-dom";
 import {FiFolder, FiGrid, FiStar} from "react-icons/fi";
-import logo from "../../../../../public/images/TicTac.png";
+import logo from "../../../../../public/images/Titalogo.jpg";
 
 interface SidebarDashboardProps {
   setSidebarOpen: (open: boolean) => void;

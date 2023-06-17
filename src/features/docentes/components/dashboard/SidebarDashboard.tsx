@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation, Link } from "react-router-dom";
 import {FiAward, FiFolder, FiBarChart2, FiTool, FiGrid, FiBriefcase, FiStar} from "react-icons/fi";
-import logo from "../../../../../public/images/Titalogo.png";
+import logo from "../../../../../public/images/Titalogo.jpg";
 import {SidebarLinkGroups} from "@/features/lideres/components";
 
 interface SidebarDashboardProps {

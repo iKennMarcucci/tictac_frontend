@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { NavLinks } from "@/features/home/components";
 import { FiAlignRight, FiXCircle, FiLogIn } from "react-icons/fi";
 import { Skeleton, Box } from '@mui/material';
-import logo from "../../../../public/images/Titalogo.png";
+import logo from "../../../../public/images/Titalogo.jpg";
 import axios from "@/utils/AxiosInstance.tsx";
 import { Transition } from "@/utils";
 

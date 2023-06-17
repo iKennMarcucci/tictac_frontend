@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation, Link } from "react-router-dom";
 import { SidebarLinkGroups } from "../components";
 import {FiAward, FiFolder, FiBarChart2, FiUsers, FiTool, FiGrid, FiStar, FiBriefcase} from "react-icons/fi";
-import logo from "../../../../public/images/TicTac.png";
+import logo from "../../../../public/images/Titalogo.jpg";
 
 interface SidebarDashboardProps {
   setSidebarOpen: (open: boolean) => void;
@@ -140,7 +140,7 @@ const SidebarDashboard = ({
                                 : "text-slate-400"
                         }`}
                     />
-                    <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                    <span className="ml-3 text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
                                 Inicio
                     </span>
                   </div>
